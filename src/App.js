@@ -1,5 +1,8 @@
+import { StrictMode } from "react";
 import ReactDOM from "react-dom";
+import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 import SearchParams from "./SearchParams";
+import Details from "./Details";
 
 // React Reusable Component
 // This is "vanilla" React -> JSX hides this from you (createElement)
@@ -29,10 +32,26 @@ import SearchParams from "./SearchParams";
 const App = () => {
   return (
     <div>
-      <h1>Adopt Me!</h1>
-      <SearchParams />
+      <Router>
+        <Link to="/">
+          <h1>Adopt Me!</h1>
+        </Link>
+        <Switch>
+          <Route exact path="/details/:id">
+            <Details />
+          </Route>
+          <Route exact path="/">
+            <SearchParams />
+          </Route>
+        </Switch>
+      </Router>
     </div>
   );
 };
 
-ReactDOM.render(<App />, document.getElementById("root"));
+ReactDOM.render(
+  <StrictMode>
+    <App />
+  </StrictMode>,
+  document.getElementById("root")
+);
